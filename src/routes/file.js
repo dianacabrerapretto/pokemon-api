@@ -1,21 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const { isAuthenticated } = require('../middlewares/general');
+const {writeFileGet} = require('../controllers/file');
 const fs = require('fs');
 
-router.get('/writeFileGet',isAuthenticated ,(req,res,next) => {
-    try {
-        fs.writeFile('./log',
-        "Intento recuperar el pokemon: " + req.query.pokemonName,() => {
-            console.log("Intento recuperar el pokemon: " + req.query.pokemonName)
-        });   
-        res.status(200).send("Intento recuperar el pokemon: " + req.query.pokemonName);
-        return next(); 
-    } catch (err) {
-        console.log(err);
-        next();
-    }
-});
+router.get('/writeFileGet',isAuthenticated , writeFileGet);
 
 router.post('/writeFilePost',isAuthenticated ,(req,res,next) => {
     try {
@@ -45,7 +34,7 @@ router.put('/:pokemonName/writeFilePut',isAuthenticated ,(req,res,next) => {
     }
 });
 
-router.delete('/writeFileDelete',isAuthenticated ,(req,res,next) => {
+router.delete('/writeFileDelete',isAuthenticated , (req,res,next) => {
     try {
         fs.writeFile('./log',
         "Intento borrar el pokemon: " + req.params.pokemonName,() => {
