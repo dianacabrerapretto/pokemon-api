@@ -14,5 +14,9 @@ router.get('/', isAuthenticated, validateIfNotValidatorError, getPokemonListForT
 router.post('/capture', isAuthenticated, ...validateCaptureBody, validatePokemonSpecie, validateIfNotValidatorError, capture);
 router.get('/:name', isAuthenticated, getPokemonByNameForTrainer);
 router.delete('/:name/release', isAuthenticated, release);
+router.get('/:porkemonName/pokename', isAuthenticated,(req, res, next) => {
+    res.status(200).send("El nombre del pokemon: " + req.params.porkemonName);
+    return next();
+})
 
 module.exports = router;
